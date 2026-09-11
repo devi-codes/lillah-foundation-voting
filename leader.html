@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LILLAH FOUNDATION - Leader Panel</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Georgia, serif;
+            background: #f5f0e4;
+            color: #123f35;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 45px 20px 60px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 44px;
+            letter-spacing: 2px;
+            margin: 0;
+        }
+
+        .gold-line {
+            width: 150px;
+            height: 3px;
+            background: #c6a15b;
+            margin: 18px auto;
+        }
+
+        .header h2 {
+            font-size: 30px;
+            margin: 10px 0;
+        }
+
+        .header p {
+            font-family: Arial, sans-serif;
+            color: #666;
+        }
+
+        .section {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.09);
+        }
+
+        .section h3 {
+            font-size: 25px;
+            margin-top: 0;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 18px;
+            margin-bottom: 10px;
+            background: #f7f4ec;
+            border-radius: 10px;
+            font-family: Arial, sans-serif;
+        }
+
+        .vote-number {
+            font-weight: bold;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+        }
+
+        th {
+            background: #123f35;
+            color: white;
+            padding: 16px;
+            text-align: left;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover td {
+            background: #f7f4ec;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 25px;
+            color: #666;
+            font-family: Arial, sans-serif;
+        }
+
+        .confidential {
+            background: #fff8e8;
+            border-left: 4px solid #c6a15b;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        .footer {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            color: #777;
+            font-size: 13px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                padding: 30px 15px;
+            }
+
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .header h2 {
+                font-size: 24px;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            th,
+            td {
+                padding: 11px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>LILLAH FOUNDATION</h1>
+
+        <div class="gold-line"></div>
+
+        <h2>LEADER / ADMIN PANEL</h2>
+
+        <p>
+            Confidential Election Dashboard
+        </p>
+    </div>
+
+
+    <!-- VOTE TOTALS -->
+
+    <div class="section">
+
+        <h3>📊 Vote Totals</h3>
+
+        {% for candidate, count in vote_counts.items() %}
+
+        <div class="result-row">
+
+            <strong>
+                {{ candidate }}
+            </strong>
+
+            <span class="vote-number">
+                {{ count }} vote(s)
+            </span>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <!-- INDIVIDUAL VOTES -->
+
+    <div class="section">
+
+        <h3>🔐 Individual Votes</h3>
+
+        <div class="confidential">
+            Confidential: This section is visible only to the Leader/Admin.
+        </div>
+
+
+        {% if votes %}
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Voter Name</th>
+                        <th>Selected Candidate</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for vote in votes %}
+
+                    <tr>
+
+                        <td>
+                            {{ vote["voter_name"] }}
+                        </td>
+
+                        <td>
+                            {{ vote["candidate"] }}
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty">
+            No votes have been submitted yet.
+        </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <div class="footer">
+        LILLAH FOUNDATION • Presidential Election
+    </div>
+
+</div>
+
+</body>
+</html>
