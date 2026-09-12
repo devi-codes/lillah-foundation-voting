@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Leader Dashboard - Lillah Foundation</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f7f0df;
+            color: #173f2b;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 25px;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .count {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px;
+            margin: 8px 0;
+            background: #f5f1e7;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th {
+            background: #173f2b;
+            color: white;
+        }
+
+        th, td {
+            padding: 14px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f8f8;
+        }
+
+        .button {
+            display: block;
+            width: fit-content;
+            margin: 30px auto 0;
+            padding: 12px 25px;
+            background: #173f2b;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .button:hover {
+            background: #245b3d;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>LILLAH FOUNDATION</h1>
+
+    <div class="subtitle">
+        LEADER / ADMIN DASHBOARD
+    </div>
+
+    <div class="card">
+
+        <h2>Vote Counts</h2>
+
+        {% for candidate, count in vote_counts.items() %}
+
+            <div class="count">
+                <strong>{{ candidate }}</strong>
+                <span>{{ count }} vote{% if count != 1 %}s{% endif %}</span>
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Individual Votes</h2>
+
+        <p>
+            This information is visible only to the leader/admin.
+        </p>
+
+        {% if votes %}
+
+            <table>
+
+                <tr>
+                    <th>Voter Name</th>
+                    <th>Selected Candidate</th>
+                </tr>
+
+                {% for vote in votes %}
+
+                    <tr>
+                        <td>{{ vote["voter_name"] }}</td>
+                        <td>{{ vote["candidate"] }}</td>
+                    </tr>
+
+                {% endfor %}
+
+            </table>
+
+        {% else %}
+
+            <p>No votes have been recorded yet.</p>
+
+        {% endif %}
+
+    </div>
+
+    <a href="/" class="button">
+        Back to Home
+    </a>
+
+</div>
+
+</body>
+</html>
