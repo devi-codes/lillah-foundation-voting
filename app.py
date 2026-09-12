@@ -15,17 +15,18 @@ app.secret_key = os.environ.get(
 VOTER_CODE = "LillahFoundation2024"
 LEADER_CODE = "LillahLeader2024"
 
-# TEMPORARY TESTING TIME
-# Voting is temporarily open so we can check the voting page.
-# We will change this back to the real election time after testing.
+# REAL VOTING TIME
+# 12 September 2026, 3:00 PM IST
+# to
+# 13 September 2026, 3:00 PM IST
 
 VOTING_START = datetime(
-    2026, 9, 12, 0, 0,
+    2026, 9, 12, 15, 0,
     tzinfo=ZoneInfo("Asia/Kolkata")
 )
 
 VOTING_END = datetime(
-    2026, 9, 13, 23, 59,
+    2026, 9, 13, 15, 0,
     tzinfo=ZoneInfo("Asia/Kolkata")
 )
 
@@ -87,7 +88,10 @@ def login():
         if not voting_is_open():
             return """
             <h1>Voting is closed</h1>
-            <p>The voting period is currently closed.</p>
+            <p>
+                Voting is open from 12 September 2026 at 3:00 PM
+                to 13 September 2026 at 3:00 PM IST.
+            </p>
             <a href="/">Go back</a>
             """
 
