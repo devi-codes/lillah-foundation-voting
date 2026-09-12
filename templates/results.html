@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Voting Results - Lillah Foundation</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f7f0df;
+            color: #173f2b;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 60px auto;
+            padding: 30px;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        .message {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .result {
+            background: #ffffff;
+            margin: 15px 0;
+            padding: 18px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 18px;
+        }
+
+        .candidate {
+            font-weight: bold;
+        }
+
+        .votes {
+            background: #d5a84b;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .winner {
+            margin-top: 30px;
+            padding: 20px;
+            background: #173f2b;
+            color: white;
+            border-radius: 15px;
+        }
+
+        .closed {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 25px;
+            background: #173f2b;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .button:hover {
+            background: #245b3d;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>LILLAH FOUNDATION</h1>
+
+    <div class="subtitle">
+        PRESIDENT VOTING RESULTS
+    </div>
+
+    {% if voting_open %}
+
+        <div class="message">
+            <h2>Results are not available yet</h2>
+
+            <p class="closed">
+                Voting is currently open.
+                Results will be displayed after voting closes.
+            </p>
+
+            <p>
+                The voting period ends on
+                <strong>13 September 2026 at 6:00 PM IST</strong>.
+            </p>
+        </div>
+
+    {% else %}
+
+        <div class="message">
+
+            <h2>Final Results</h2>
+
+            {% for candidate, count in vote_counts.items() %}
+
+                <div class="result">
+                    <span class="candidate">
+                        {{ candidate }}
+                    </span>
+
+                    <span class="votes">
+                        {{ count }} vote{% if count != 1 %}s{% endif %}
+                    </span>
+                </div>
+
+            {% endfor %}
+
+            {% if winners %}
+
+                <div class="winner">
+
+                    {% if winners|length == 1 %}
+                        <h2>🏆 Winner</h2>
+
+                        <h3>{{ winners[0] }}</h3>
+
+                        <p>
+                            {{ highest_votes }} vote{% if highest_votes != 1 %}s{% endif %}
+                        </p>
+
+                    {% else %}
+
+                        <h2>🏆 Tie</h2>
+
+                        <p>
+                            The following candidates received the highest number of votes:
+                        </p>
+
+                        {% for winner in winners %}
+                            <h3>{{ winner }}</h3>
+                        {% endfor %}
+
+                        <p>
+                            {{ highest_votes }} votes each
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+            {% else %}
+
+                <div class="winner">
+                    <h2>No votes were recorded.</h2>
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    {% endif %}
+
+    <a href="/" class="button">
+        Back to Home
+    </a>
+
+</div>
+
+</body>
+</html>
