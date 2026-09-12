@@ -1,476 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>LILLAH FOUNDATION - President Voting</title>
-
+    <title>Cast Your Vote - Lillah Foundation</title>
     <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
         body {
             margin: 0;
-            font-family: Georgia, serif;
-            background: #f5f0e4;
-            color: #123f35;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: auto;
-            padding: 45px 20px 60px;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .header h1 {
-            font-size: 44px;
-            letter-spacing: 2px;
-            margin: 0 0 10px;
-        }
-
-        .gold-line {
-            width: 150px;
-            height: 3px;
-            background: #c6a15b;
-            margin: 18px auto;
-        }
-
-        .header h2 {
-            font-size: 30px;
-            margin: 10px 0;
-        }
-
-        .header p {
             font-family: Arial, sans-serif;
-            color: #555;
-            font-size: 16px;
+            background: #f7f0df;
+            color: #173f2b;
         }
-
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 25px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #777;
+            margin-bottom: 30px;
+        }
         .name-box {
-            max-width: 550px;
-            margin: 0 auto 40px;
             background: white;
             padding: 25px;
             border-radius: 15px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
         }
-
-        .name-box label {
-            display: block;
+        label {
             font-weight: bold;
+            display: block;
             margin-bottom: 10px;
-            font-size: 18px;
         }
-
-        .name-box input {
+        input[type="text"] {
             width: 100%;
-            padding: 15px;
-            font-size: 17px;
+            box-sizing: border-box;
+            padding: 13px;
             border: 1px solid #ccc;
-            border-radius: 10px;
-            outline: none;
+            border-radius: 8px;
+            font-size: 16px;
         }
-
-        .choose-text {
-            text-align: center;
-            font-size: 24px;
-            margin-bottom: 25px;
-        }
-
         .candidates {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
+            gap: 20px;
         }
-
         .candidate {
             background: white;
-            padding: 30px;
-            border-radius: 18px;
+            padding: 18px;
+            border-radius: 15px;
             text-align: center;
-            box-shadow: 0 4px 18px rgba(0,0,0,0.09);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
         }
-
-        .candidate-photo {
+        .candidate img {
             width: 180px;
             height: 180px;
             object-fit: cover;
-            border-radius: 50%;
-            border: 4px solid #c6a15b;
-            margin-bottom: 20px;
+            border-radius: 12px;
+            display: block;
+            margin: 0 auto 15px;
         }
-
         .candidate h3 {
-            font-size: 25px;
-            margin: 10px 0;
+            margin: 10px 0 15px;
         }
-
-        .candidate p {
-            font-family: Arial, sans-serif;
-            color: #666;
-            line-height: 1.5;
-        }
-
-        .vote-button {
-            width: 100%;
-            padding: 15px;
-            margin-top: 18px;
+        .candidate button {
             border: none;
-            border-radius: 10px;
-            background: #123f35;
+            padding: 11px 20px;
+            background: #173f2b;
             color: white;
-            font-size: 17px;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 15px;
         }
-
-        .vote-button:hover {
-            background: #0b3028;
+        .candidate button:hover {
+            background: #245b3d;
         }
-
         .notice {
-            margin-top: 35px;
+            margin-top: 30px;
+            padding: 18px;
+            background: #fff8e8;
+            border-radius: 12px;
             text-align: center;
-            font-family: Arial, sans-serif;
-            color: #666;
-            font-size: 14px;
         }
-
-        @media (max-width: 700px) {
-
-            .container {
-                padding: 30px 15px;
-            }
-
-            .header h1 {
-                font-size: 32px;
-            }
-
-            .header h2 {
-                font-size: 24px;
-            }
-
+        @media (max-width: 650px) {
             .candidates {
                 grid-template-columns: 1fr;
             }
-
-            .candidate {
-                padding: 25px 20px;
+            .candidate img {
+                width: 200px;
+                height: 200px;
             }
-
         }
-
     </style>
-
 </head>
-
 <body>
-
 <div class="container">
-
-    <div class="header">
-
-        <h1>LILLAH FOUNDATION</h1>
-
-        <div class="gold-line"></div>
-
-        <h2>PRESIDENT VOTING</h2>
-
-        <p>
-            Please enter your name and select one candidate.
-        </p>
-
+    <h1>LILLAH FOUNDATION</h1>
+    <div class="subtitle">
+        PRESIDENT VOTING
     </div>
-
-
     <div class="name-box">
-
         <label for="voterName">
-            Voter Name
+            Enter your full name
         </label>
-
         <input
             type="text"
             id="voterName"
-            placeholder="Enter your full name"
-            autocomplete="name"
+            placeholder="Enter your name"
+            required
         >
-
     </div>
-
-
-    <div class="choose-text">
-        Select Your Candidate
-    </div>
-
-
     <div class="candidates">
-
-
+        <!-- ARSALAN MAHMOOD -->
         <div class="candidate">
-
             <img
-                src="{{ url_for('static', filename='arsalan mahmood.jpg') }}"
-                class="candidate-photo"
+                src="{{ url_for('static', filename='arsalan mahmood.jpeg') }}"
                 alt="Arsalan Mahmood"
             >
-
-            <h3>
-                Arsalan Mahmood
-            </h3>
-
-            <p>
-                Candidate for President of Lillah Foundation
-            </p>
-
-            <form action="/submit_vote" method="POST">
-
+            <h3>Arsalan Mahmood</h3>
+            <form
+                method="POST"
+                action="{{ url_for('submit_vote') }}"
+                onsubmit="return prepareVote(this, 'Arsalan Mahmood')"
+            >
+                <input
+                    type="hidden"
+                    name="voter_name"
+                    class="hidden-name"
+                >
                 <input
                     type="hidden"
                     name="candidate"
                     value="Arsalan Mahmood"
                 >
-
+                <button type="submit">
+                    Vote
+                </button>
+            </form>
+        </div>
+        <!-- TASLIM AKHTAR -->
+        <div class="candidate">
+            <img
+                src="{{ url_for('static', filename='taslim akhtar.jpeg') }}"
+                alt="Taslim Akhtar"
+            >
+            <h3>Taslim Akhtar</h3>
+            <form
+                method="POST"
+                action="{{ url_for('submit_vote') }}"
+                onsubmit="return prepareVote(this, 'Taslim Akhtar')"
+            >
                 <input
                     type="hidden"
                     name="voter_name"
                     class="hidden-name"
                 >
-
-                <button
-                    type="submit"
-                    class="vote-button"
-                    onclick="return saveName(this)"
-                >
-                    Vote for Arsalan Mahmood
-                </button>
-
-            </form>
-
-        </div>
-
-
-        <div class="candidate">
-
-            <img
-                src="{{ url_for('static', filename='taslim akhtar.jpg') }}"
-                class="candidate-photo"
-                alt="Taslim Akhtar"
-            >
-
-            <h3>
-                Taslim Akhtar
-            </h3>
-
-            <p>
-                Candidate for President of Lillah Foundation
-            </p>
-
-            <form action="/submit_vote" method="POST">
-
                 <input
                     type="hidden"
                     name="candidate"
                     value="Taslim Akhtar"
                 >
-
+                <button type="submit">
+                    Vote
+                </button>
+            </form>
+        </div>
+        <!-- SALEHEEN SALAM -->
+        <div class="candidate">
+            <img
+                src="{{ url_for('static', filename='saleheen salam.jpeg') }}"
+                alt="Saleheen Salam"
+            >
+            <h3>Saleheen Salam</h3>
+            <form
+                method="POST"
+                action="{{ url_for('submit_vote') }}"
+                onsubmit="return prepareVote(this, 'Saleheen Salam')"
+            >
                 <input
                     type="hidden"
                     name="voter_name"
                     class="hidden-name"
                 >
-
-                <button
-                    type="submit"
-                    class="vote-button"
-                    onclick="return saveName(this)"
-                >
-                    Vote for Taslim Akhtar
-                </button>
-
-            </form>
-
-        </div>
-
-
-        <div class="candidate">
-
-            <img
-                src="{{ url_for('static', filename='saleheen salam.jpg') }}"
-                class="candidate-photo"
-                alt="Saleheen Salam"
-            >
-
-            <h3>
-                Saleheen Salam
-            </h3>
-
-            <p>
-                Candidate for President of Lillah Foundation
-            </p>
-
-            <form action="/submit_vote" method="POST">
-
                 <input
                     type="hidden"
                     name="candidate"
                     value="Saleheen Salam"
                 >
-
+                <button type="submit">
+                    Vote
+                </button>
+            </form>
+        </div>
+        <!-- SIKANDAR AZAM -->
+        <div class="candidate">
+            <img
+                src="{{ url_for('static', filename='sikandar azam 2.jpeg') }}"
+                alt="Sikandar Azam"
+            >
+            <h3>Sikandar Azam</h3>
+            <form
+                method="POST"
+                action="{{ url_for('submit_vote') }}"
+                onsubmit="return prepareVote(this, 'Sikandar Azam')"
+            >
                 <input
                     type="hidden"
                     name="voter_name"
                     class="hidden-name"
                 >
-
-                <button
-                    type="submit"
-                    class="vote-button"
-                    onclick="return saveName(this)"
-                >
-                    Vote for Saleheen Salam
-                </button>
-
-            </form>
-
-        </div>
-
-
-        <div class="candidate">
-
-            <img
-                src="{{ url_for('static', filename='sikandar azam.jpg') }}"
-                class="candidate-photo"
-                alt="Sikandar Azam"
-            >
-
-            <h3>
-                Sikandar Azam
-            </h3>
-
-            <p>
-                Candidate for President of Lillah Foundation
-            </p>
-
-            <form action="/submit_vote" method="POST">
-
                 <input
                     type="hidden"
                     name="candidate"
                     value="Sikandar Azam"
                 >
-
+                <button type="submit">
+                    Vote
+                </button>
+            </form>
+        </div>
+        <!-- LAREB KHAN -->
+        <div class="candidate">
+            <img
+                src="{{ url_for('static', filename='lareb khan.jpeg') }}"
+                alt="Lareb Khan"
+            >
+            <h3>Lareb Khan</h3>
+            <form
+                method="POST"
+                action="{{ url_for('submit_vote') }}"
+                onsubmit="return prepareVote(this, 'Lareb Khan')"
+            >
                 <input
                     type="hidden"
                     name="voter_name"
                     class="hidden-name"
                 >
-
-                <button
-                    type="submit"
-                    class="vote-button"
-                    onclick="return saveName(this)"
-                >
-                    Vote for Sikandar Azam
-                </button>
-
-            </form>
-
-        </div>
-
-
-        <div class="candidate">
-
-            <img
-                src="{{ url_for('static', filename='lareb khan.jpg') }}"
-                class="candidate-photo"
-                alt="Lareb Khan"
-            >
-
-            <h3>
-                Lareb Khan
-            </h3>
-
-            <p>
-                Candidate for President of Lillah Foundation
-            </p>
-
-            <form action="/submit_vote" method="POST">
-
                 <input
                     type="hidden"
                     name="candidate"
                     value="Lareb Khan"
                 >
-
-                <input
-                    type="hidden"
-                    name="voter_name"
-                    class="hidden-name"
-                >
-
-                <button
-                    type="submit"
-                    class="vote-button"
-                    onclick="return saveName(this)"
-                >
-                    Vote for Lareb Khan
+                <button type="submit">
+                    Vote
                 </button>
-
             </form>
-
         </div>
-
     </div>
-
-
     <div class="notice">
-
-        ⚠️ Please review your choice carefully.
-
-        Your vote cannot be changed after submission.
-
+        <strong>Important:</strong>
+        You can vote only once. Your vote cannot be changed after submission.
     </div>
-
 </div>
-
-
 <script>
-
-function saveName(button) {
-
-    const name =
-        document.getElementById("voterName").value.trim();
-
-    if (name === "") {
-
-        alert("Please enter your name first.");
-
+function prepareVote(form, candidateName) {
+    const voterName = document
+        .getElementById("voterName")
+        .value
+        .trim();
+    if (!voterName) {
+        alert("Please enter your full name first.");
+        document
+            .getElementById("voterName")
+            .focus();
         return false;
     }
-
-    const form =
-        button.closest("form");
-
-    form.querySelector(".hidden-name").value = name;
-
-    const confirmed = confirm(
-        "Are you sure you want to vote for this candidate?\n\nYour vote cannot be changed later."
+    const confirmation = confirm(
+        "You are voting for " +
+        candidateName +
+        ".\n\nAre you sure you want to submit your vote?"
     );
-
-    return confirmed;
+    if (!confirmation) {
+        return false;
+    }
+    form.querySelector(".hidden-name").value = voterName;
+    return true;
 }
-
 </script>
-
 </body>
-
 </html>
