@@ -265,9 +265,11 @@ def leader():
     )
 
 
-if __name__ == "__main__":
-    create_database()
+# Create the database when the application starts
+create_database()
 
+
+if __name__ == "__main__":
     app.run(
         host="0.0.0.0",
         port=int(os.environ.get("PORT", 5000)),
