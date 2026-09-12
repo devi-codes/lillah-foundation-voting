@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from datetime import datetime
 from zoneinfo import ZoneInfo
-import sqlite3
 import os
+import psycopg
+from psycopg.rows import dict_row
 
 app = Flask(__name__)
 
@@ -11,14 +12,8 @@ app.secret_key = os.environ.get(
     "lillah-foundation-demo-key"
 )
 
-# ACCESS CODES
 VOTER_CODE = "LillahFoundation2024"
 LEADER_CODE = "LillahLeader2024"
-
-# REAL VOTING TIME
-# 12 September 2026, 3:00 PM IST
-# to
-# 13 September 2026, 3:00 PM IST
 
 VOTING_START = datetime(
     2026, 9, 12, 15, 0,
@@ -30,7 +25,10 @@ VOTING_END = datetime(
     tzinfo=ZoneInfo("Asia/Kolkata")
 )
 
-# CANDIDATES
+# New election round — allows people who voted before the database reset
+# to vote again.
+ELECTION_ID = "2026-09-12-NEW"
+
 candidates = [
     "Arsalan Mahmood",
     "Taslim Akhtar",
@@ -39,12 +37,14 @@ candidates = [
     "Lareb Khan"
 ]
 
-DATABASE = "votes.db"
+DATABASE_URL = os.environ.get("DATABASE_URL")
 
 
 def get_db():
-    connection = sqlite3.connect(DATABASE)
-    connection.row_factory = sqlite3.Row
+    connection = psycopg.connect(
+        DATABASE_URL,
+        row_factory=dict_row
+    )
     return connection
 
 
@@ -53,7 +53,7 @@ def create_database():
 
     connection.execute("""
         CREATE TABLE IF NOT EXISTS votes (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id SERIAL PRIMARY KEY,
             voter_name TEXT NOT NULL,
             candidate TEXT NOT NULL
         )
@@ -88,10 +88,8 @@ def login():
         if not voting_is_open():
             return """
             <h1>Voting is closed</h1>
-            <p>
-                Voting is open from 12 September 2026 at 3:00 PM
-                to 13 September 2026 at 3:00 PM IST.
-            </p>
+            <p>Voting is open from 12 September 2026 at 3:00 PM
+            to 13 September 2026 at 3:00 PM IST.</p>
             <a href="/">Go back</a>
             """
 
@@ -111,7 +109,7 @@ def vote():
     if not session.get("voter_access"):
         return redirect(url_for("home"))
 
-    if session.get("has_voted"):
+    if session.get("voted_election") == ELECTION_ID:
         return """
         <h1>You have already voted.</h1>
         <p>Your vote cannot be changed or submitted again.</p>
@@ -137,7 +135,7 @@ def submit_vote():
     if not session.get("voter_access"):
         return redirect(url_for("home"))
 
-    if session.get("has_voted"):
+    if session.get("voted_election") == ELECTION_ID:
         return """
         <h1>You have already voted.</h1>
         <p>Your vote cannot be changed.</p>
@@ -175,9 +173,8 @@ def submit_vote():
 
     connection.execute(
         """
-        INSERT INTO votes
-        (voter_name, candidate)
-        VALUES (?, ?)
+        INSERT INTO votes (voter_name, candidate)
+        VALUES (%s, %s)
         """,
         (voter_name, candidate)
     )
@@ -185,7 +182,7 @@ def submit_vote():
     connection.commit()
     connection.close()
 
-    session["has_voted"] = True
+    session["voted_election"] = ELECTION_ID
 
     return render_template(
         "success.html",
@@ -267,7 +264,6 @@ def leader():
     )
 
 
-# Create database when the application starts
 create_database()
 
 
