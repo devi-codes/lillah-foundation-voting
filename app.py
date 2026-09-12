@@ -15,18 +15,17 @@ app.secret_key = os.environ.get(
 VOTER_CODE = "LillahFoundation2024"
 LEADER_CODE = "LillahLeader2024"
 
-# VOTING TIME
-# 12 September 2026, 6:00 PM IST
-# to
-# 13 September 2026, 6:00 PM IST
+# TEMPORARY TESTING TIME
+# Voting is temporarily open so we can check the voting page.
+# We will change this back to the real election time after testing.
 
 VOTING_START = datetime(
-    2026, 9, 12, 18, 0,
+    2026, 9, 12, 0, 0,
     tzinfo=ZoneInfo("Asia/Kolkata")
 )
 
 VOTING_END = datetime(
-    2026, 9, 13, 18, 0,
+    2026, 9, 13, 23, 59,
     tzinfo=ZoneInfo("Asia/Kolkata")
 )
 
@@ -88,8 +87,7 @@ def login():
         if not voting_is_open():
             return """
             <h1>Voting is closed</h1>
-            <p>The voting period is from 12 September 2026 at 6:00 PM
-            to 13 September 2026 at 6:00 PM IST.</p>
+            <p>The voting period is currently closed.</p>
             <a href="/">Go back</a>
             """
 
@@ -265,7 +263,7 @@ def leader():
     )
 
 
-# Create the database when the application starts
+# Create database when the application starts
 create_database()
 
 
